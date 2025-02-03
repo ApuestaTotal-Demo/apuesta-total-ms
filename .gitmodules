@@ -1,0 +1,9 @@
+[submodule "transacciones-ms"]
+	path = transacciones-ms
+	url = https://github.com/ApuestaTotal-Demo/transacciones-ms.git
+[submodule "cuentas-ms"]
+	path = cuentas-ms
+	url = https://github.com/ApuestaTotal-Demo/cuentas-ms.git
+[submodule "compras-ms"]
+	path = compras-ms
+	url = https://github.com/ApuestaTotal-Demo/compras-ms.git
