@@ -1,59 +1,47 @@
 version: '3'
 
 services:
-  nats-server:
-    image: nats:latest
-    ports:
-      - "4222:4222"
-      - "6222:6222"
-      - "8222:8222"
-
-  client-gateway:
+  cuentas-ms:
     build: 
-      context: ./client-gateway
+      context: ./cuentas-ms
       dockerfile: dockerfile.prod
-    image: client-gateway-prod
+    image: cuentas-ms-prod
     ports:
-      - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
+      - ${CUENTAS_MS_PORT}:${CUENTAS_MS_PORT}
     environment:
-      - PORT=${CLIENT_GATEWAY_PORT}
-      - NATS_SERVERS=nats://nats-server:4222
+      - PORT=${CUENTAS_MS_PORT}
+      - DB_HOST=${CUENTAS_DB_HOST}
+      - DB_PORT=${CUENTAS_DB_PORT}
+      - DB_NAME=${CUENTAS_DB_NAME}
+      - DB_USERNAME=${CUENTAS_DB_USER}
+      - DB_PASSWORD=${CUENTAS_DB_PASS}
 
-  auth-ms:
-    build: 
-      context: ./auth-ms
-      dockerfile: dockerfile.prod
-    image: auth-ms-prod
-    ports:
-      - ${AUTH_MS_PORT}:${AUTH_MS_PORT}
-    environment:
-      - PORT=${AUTH_MS_PORT}
-      - NATS_SERVERS=nats://nats-server:4222
-      - DATABASE_URL=${AUTH_MS_DATABASE_URL}
-      - JWT_SECRET=${JWT_SECRET}
-
-  products-ms:
+  compras-ms:
     build:
-      context: ./products-ms
+      context: ./compras-ms
       dockerfile: dockerfile.prod
     image: products-ms-prod
     ports:
-      - ${PRODUCTS_MS_PORT}:${PRODUCTS_MS_PORT}
+      - ${COMPRAS_MS_PORT}:${COMPRAS_MS_PORT}
     environment:
-      - PORT=${PRODUCTS_MS_PORT}
-      - NATS_SERVERS=nats://nats-server:4222
-      - DATABASE_URL=file:./dev.db
+      - PORT=${COMPRAS_MS_PORT}
+      - DB_HOST=${COMPRAS_DB_HOST}
+      - DB_PORT=${COMPRAS_DB_PORT}
+      - DB_NAME=${COMPRAS_DB_NAME}
+      - DB_USERNAME=${COMPRAS_DB_USER}
+      - DB_PASSWORD=${COMPRAS_DB_PASS}
   
-  orders-ms:
+  transacciones-ms:
     build:
-      context: ./orders-ms
+      context: ./transacciones-ms
       dockerfile: dockerfile.prod
-      args:
-        - ORDERS_MS_DATABASE_URL=${ORDERS_MS_DATABASE_URL}
     image: orders-ms-prod
     ports:
-      - ${ORDERS_MS_PORT}:${ORDERS_MS_PORT}
+      - ${TRANSAC_MS_PORT}:${TRANSAC_MS_PORT}
     environment:
-      - PORT=${ORDERS_MS_PORT}
-      - NATS_SERVERS=nats://nats-server:4222
-      - DATABASE_URL=${ORDERS_MS_DATABASE_URL}
+      - PORT=${TRANSAC_MS_PORT}
+      - DB_HOST=${TRANSAC_DB_HOST}
+      - DB_PORT=${TRANSAC_DB_PORT}
+      - DB_NAME=${TRANSAC_DB_NAME}
+      - DB_USERNAME=${TRANSAC_DB_USER}
+      - DB_PASSWORD=${TRANSAC_DB_PASS}
