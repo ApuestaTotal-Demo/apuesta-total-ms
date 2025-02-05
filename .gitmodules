@@ -7,3 +7,6 @@
 [submodule "compras-ms"]
 	path = compras-ms
 	url = https://github.com/ApuestaTotal-Demo/compras-ms.git
+[submodule "notificaciones-ms"]
+	path = notificaciones-ms
+	url = https://github.com/ApuestaTotal-Demo/notificaciones-ms.git
