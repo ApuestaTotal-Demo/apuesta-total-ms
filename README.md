@@ -15,7 +15,7 @@
 5. Ejecutar el comando `docker compose -f docker-compose.prod.yml up -d` para levantar los contenedores
 6. Ejecutar el comando `docker compose -f docker-compose.prod.yml down` para destruir los contenedores
 
-7. Si se desea actualizar cambios en el repositorio se deberá ejecutar `git pull origin main` en el repositorio padre y en el repositorio hijo donde se quiere obtener los nuevos cambios.
+7. Si se desea actualizar cambios en el repositorio se deberá ejecutar `git pull origin master` en el repositorio padre y en el repositorio hijo donde se quiere obtener los nuevos cambios.
 
 ## Test
 
