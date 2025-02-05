@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>WebSocket Client</h1>
+    <button id="connectButton">Conectar</button>
+    <button id="subscribeButton" disabled>Suscribirse</button>
+    <div id="messages"></div>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+    <script>
+        let socket;
+
+        document.getElementById('connectButton').addEventListener('click', () => {
+            socket = io('http://localhost:3004');
+
+            socket.on('connect', () => {
+                console.log('Conexión establecida con el servidor');
+                document.getElementById('subscribeButton').disabled = false;
+            });
+
+            socket.on('notificacion', (data) => {
+                console.log('Notificación recibida:', data);
+                document.getElementById('messages').innerHTML += `<p>${JSON.stringify(data)}</p>`;
+            });
+
+            socket.on('connect_error', (error) => {
+                console.error('Error de conexión:', error);
+            });
+
+            socket.on('disconnect', () => {
+                console.log('Conexión cerrada');
+                document.getElementById('subscribeButton').disabled = true;
+            });
+        });
+
+        document.getElementById('subscribeButton').addEventListener('click', () => {
+            const usuario_id = prompt('Ingresa tu usuario_id:');
+            if (usuario_id) {
+                socket.emit('suscribir', { usuario_id });
+            }
+        });
+    </script>
+</body>
+</html>
